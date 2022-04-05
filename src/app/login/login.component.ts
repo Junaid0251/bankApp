@@ -9,8 +9,8 @@ export class LoginComponent implements OnInit {
 
   //creating a database
 
-  accno ="please enter account number!!!"
-  acno =""
+  acno ="please enter account number!!!"
+  accno =""
   pswd =""
 
   database={
@@ -27,16 +27,20 @@ export class LoginComponent implements OnInit {
 
   acnoChange(event:any){
     this.accno=event.target.value;
+    console.log(this.accno);
+    
     
   }
 
   pswdChange(event:any){
     this.pswd=event.target.value;
+    console.log(this.pswd);
+    
     
   }
 
    login(){
-    //  alert("logined")
+     alert("logined")
    }
 
 
