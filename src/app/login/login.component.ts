@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   accno =""
   pswd =""
 
-  database={
+  database:any={
     1000:{acno:1000,uname:"sura",password:1000,balance:20},
     1001:{acno:1001,uname:"suni",password:1001,balance:200},
     1002:{acno:1002,uname:"sasi",password:1002,balance:0},
@@ -27,20 +27,35 @@ export class LoginComponent implements OnInit {
 
   acnoChange(event:any){
     this.accno=event.target.value;
-    console.log(this.accno);
+    // console.log(this.accno);
     
     
   }
 
   pswdChange(event:any){
     this.pswd=event.target.value;
-    console.log(this.pswd);
+    // console.log(this.pswd);
     
     
   }
 
    login(){
-     alert("logined")
+    //  alert("logined")
+    let acno=this.accno;
+    let pswd=this.pswd;
+
+    let db=this.database;
+    if(acno in db){
+      if(pswd==db[acno]["password"]){
+        alert("login successfull");
+      }
+      else{
+        alert("Incorrect password");
+      }
+    }
+    else{
+      alert("invalid user");
+    }
    }
 
 
