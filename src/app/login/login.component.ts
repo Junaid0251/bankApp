@@ -39,6 +39,9 @@ export class LoginComponent implements OnInit {
     
   // }
 
+
+//  login using event binding /two way
+
   //  login(){
   //   //  alert("logined")
   //   let acno=this.accno;
@@ -58,12 +61,30 @@ export class LoginComponent implements OnInit {
   //   }
   //  }
 
+// login using template referencing
 
+//   login(a:any,p:any){
+//     let acno=a.value;
+//     let pswd=p.value;
+// // console.log(p.value);
 
-  login(a:any,p:any){
-    let acno=a.value;
-    let pswd=p.value;
-// console.log(p.value);
+//     let db=this.database;
+//     if(acno in db){
+//       if(pswd==db[acno]["password"]){
+//         alert("login successfull");
+//       }
+//       else{
+//         alert("Incorrect password");
+//       }
+//     }
+//     else{
+//       alert("invalid user");
+//     }
+// }
+
+login(){
+  let acno=this.accno;
+    let pswd=this.pswd;
 
     let db=this.database;
     if(acno in db){
@@ -78,4 +99,5 @@ export class LoginComponent implements OnInit {
       alert("invalid user");
     }
 }
+
 }
