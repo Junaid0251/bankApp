@@ -9,7 +9,7 @@ export class LoginComponent implements OnInit {
 
   //creating a database
 
-  acno ="please enter account number!!!"
+  acplace ="please enter account number!!!"
   accno =""
   pswd =""
 
@@ -25,24 +25,45 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  acnoChange(event:any){
-    this.accno=event.target.value;
-    // console.log(this.accno);
+  // acnoChange(event:any){
+  //   this.accno=event.target.value;
+  //   // console.log(this.accno);
     
     
-  }
+  // }
 
-  pswdChange(event:any){
-    this.pswd=event.target.value;
-    // console.log(this.pswd);
+  // pswdChange(event:any){
+  //   this.pswd=event.target.value;
+  //   // console.log(this.pswd);
     
     
-  }
+  // }
 
-   login(){
-    //  alert("logined")
-    let acno=this.accno;
-    let pswd=this.pswd;
+  //  login(){
+  //   //  alert("logined")
+  //   let acno=this.accno;
+  //   let pswd=this.pswd;
+
+  //   let db=this.database;
+  //   if(acno in db){
+  //     if(pswd==db[acno]["password"]){
+  //       alert("login successfull");
+  //     }
+  //     else{
+  //       alert("Incorrect password");
+  //     }
+  //   }
+  //   else{
+  //     alert("invalid user");
+  //   }
+  //  }
+
+
+
+  login(a:any,p:any){
+    let acno=a.value;
+    let pswd=p.value;
+// console.log(p.value);
 
     let db=this.database;
     if(acno in db){
@@ -56,7 +77,5 @@ export class LoginComponent implements OnInit {
     else{
       alert("invalid user");
     }
-   }
-
-
+}
 }

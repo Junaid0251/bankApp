@@ -4,6 +4,8 @@
  <nav class="navbar navbar-light bg-dark " >
     <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
     <span class="quote text-light">Giving you freedom...</span>
+    <br>
+    <h3>Perfect Banking Partner</h3>
   </nav>
   
   
@@ -20,19 +22,31 @@
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-user"></i></span>
                           </div>
-                          <input type="text" (change)="acnoChange($event)" class="form-control" [placeholder]="acno" id="login_accno" required>
+
+
+                          <!-- event binding using $event - (change)="acnoChange($event)" -->
+                          <!-- template referencing variable - #acno -->
+
+
+                          <input type="text" #acno class="form-control" [placeholder]="acplace" id="login_accno" required>
                           
                       </div>
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
-                          <input type="password" (change)="pswdChange($event)" class="form-control" placeholder="password" id="login_password" required>
+
+
+                           <!-- event binding using $event - (change)="pswdChange($event)" -->
+                          <!-- template referencing variable - #acno -->
+
+
+                          <input type="password" #pswd class="form-control" placeholder="password" id="login_password" required>
                       </div>
                       
                       <div class="form-group">
                           //creating login event 
-                          <input type="submit" (click)="login()" value="Login" class="btn float-right login_btn " style="width:50%" >
+                          <input type="submit" (click)="login(acno,pswd)" value="Login" class="btn float-right login_btn " style="width:50%" >
                       </div>
                   </form>
               </div>
