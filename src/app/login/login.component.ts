@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  //creating a database
-
+ 
   acplace ="please enter account number!!!"
   accno =""
   pswd =""
+ //creating a database
 
   database:any={
     1000:{acno:1000,uname:"sura",password:1000,balance:20},
