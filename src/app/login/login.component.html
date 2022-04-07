@@ -17,7 +17,7 @@
                   
               </div>
               <div class="card-body">
-                  <form>
+                  <form (ngSubmit)="login()">            <!--(ngSubmit)="login" -this is an event-->
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -48,7 +48,7 @@
                       
                       <div class="form-group">
                           //creating login event 
-                          <input type="submit" (click)="login()" value="Login" class="btn float-right login_btn " style="width:50%" >
+                          <input type="submit" value="Login" class="btn float-right login_btn " style="width:50%" >
                       </div>
                   </form>
               </div>
