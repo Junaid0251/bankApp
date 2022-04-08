@@ -39,4 +39,52 @@ export class DataService {
     }
 
   }
+
+
+  login(acno: any, pswd: any) {
+
+    let db = this.database;
+    if (acno in db) {
+      if (pswd == db[acno]["password"]) {
+        // alert("login successfull");
+
+        // this.router.navigateByUrl("dashboard");
+        //already exist
+        return true;
+      }
+      else {
+        alert("Incorrect password");
+        return false;
+      }
+    }
+    else {
+      alert("invalid user");
+      return false;
+
+    }
+  }
+
+
+  //deposit
+
+  deposit(acno: any, pswd: any, amt: any) {
+    let amount = parseInt(amt);
+    let database = this.database;
+
+    if (acno in database) {
+      if (pswd == database[acno]["password"]) {
+        database[acno]["balance"] += amount;
+        return database[acno]["balance"]
+      }
+      else {
+        alert("incorrect password")
+        return false
+      }
+    }
+    else {
+      alert("invalid user")
+      return false
+    }
+  }
+
 }
