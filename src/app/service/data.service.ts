@@ -96,9 +96,13 @@ export class DataService {
 
     if(acno in this.database){
       if(this.database[acno]["password"]==pswd){
-        if(this.database[acno]["balance"]>0){
-          this.database[acno]["balance"]-=amt;
+        if(this.database[acno]["balance"]>=amount){
+          this.database[acno]["balance"]-=amount;
+          // alert(+amount+"deducted!!")
           return this.database[acno]["balance"];
+        }
+        else{
+          alert("insufficient balance")
         }
       }
       else{

@@ -40,9 +40,9 @@ export class DashboardComponent implements OnInit {
     let amt = this.amount;
 
     const result = this.ds.withdraw(acno, pswd, amt);
-    if(result){
+    if(result >= 0){
       alert(amt +" Amount deducted and new balance is "+ result);
-      
+
     }
 
   }
