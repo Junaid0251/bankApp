@@ -87,4 +87,29 @@ export class DataService {
     }
   }
 
+
+  //withdraw
+
+  withdraw(acno:any,pswd:any,amt:any){
+    let amount=parseInt(amt);
+
+
+    if(acno in this.database){
+      if(this.database[acno]["password"]==pswd){
+        if(this.database[acno]["balance"]>0){
+          this.database[acno]["balance"]-=amt;
+          return this.database[acno]["balance"];
+        }
+      }
+      else{
+        alert("incorrect password")
+        return false;
+      }
+    }
+    else{
+      alert("invalid user");
+      return false;
+    }
+  }
+
 }
