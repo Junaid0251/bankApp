@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
     let pswd = this.pswd;
     let amt = this.amt;
 
+    // calling deposit() in DataService
+
     const result = this.ds.deposit(acno, pswd, amt)
     if (result) {
       alert(amt + " succesfully deposited and new balance is " + result)
@@ -39,9 +41,11 @@ export class DashboardComponent implements OnInit {
     let pswd = this.passwd;
     let amt = this.amount;
 
+    // calling withdraw() in DataService
+    
     const result = this.ds.withdraw(acno, pswd, amt);
-    if(result >= 0){
-      alert(amt +" Amount deducted and new balance is "+ result);
+    if (result >= 0) {
+      alert(amt + " Amount deducted and new balance is " + result);
 
     }
 
