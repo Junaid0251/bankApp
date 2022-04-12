@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../service/data.service';
 
@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   //RegisterForm Model
 
   registerForm=this.fb.group({
-    uname:[''],
+    uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]],
     acntno:[''],
     passwd:['']
   })
@@ -30,13 +30,20 @@ export class RegisterComponent implements OnInit {
     let acntno=this.registerForm.value.acntno;
     let passwd=this.registerForm.value.passwd;
 
-    const reslt=this.db.register(acntno,uname,passwd)
+    if(this.registerForm.valid){
+
+      const reslt=this.db.register(acntno,uname,passwd)
     if(reslt){
       alert("registered")
       this.router.navigateByUrl("");
     }
     else{
       alert("already exist...press log in")
+    }
+
+    }
+    else{
+      alert("invalid form")
     }
   }
 
