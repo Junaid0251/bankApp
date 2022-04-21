@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+  currentUser:any;
+
   //database
   database: any = {
     1000: { acno: 1000, uname: "sura", password: 1000, balance: 20 },
@@ -47,6 +49,8 @@ export class DataService {
     if (acno in db) {
       if (pswd == db[acno]["password"]) {
         // alert("login successfull");
+
+        this.currentUser=this.database[acno]["uname"];
 
         // this.router.navigateByUrl("dashboard");
         //already exist
