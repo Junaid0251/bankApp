@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TransactionsComponent } from '../transactions/transactions.component';
 
 @Injectable({
   providedIn: 'root'
@@ -6,12 +7,13 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
   currentUser:any;
+  currentAcno:any
 
   //database
   database: any = {
-    1000: { acno: 1000, uname: "sura", password: 1000, balance: 20 },
-    1001: { acno: 1001, uname: "suni", password: 1001, balance: 200 },
-    1002: { acno: 1002, uname: "sasi", password: 1002, balance: 0 },
+    1000: { acno: 1000, uname: "sura", password: 1000, balance: 20,transaction:[] },
+    1001: { acno: 1001, uname: "suni", password: 1001, balance: 200,transaction:[] },
+    1002: { acno: 1002, uname: "sasi", password: 1002, balance: 0,transaction:[] },
 
   }
 
@@ -33,7 +35,8 @@ export class DataService {
         acno,
         uname,
         password,
-        balance: 0
+        balance: 0,
+        transaction:[]
       }
       console.log(database);
 
@@ -51,6 +54,7 @@ export class DataService {
         // alert("login successfull");
 
         this.currentUser=this.database[acno]["uname"];
+        this.currentAcno=acno;
 
         // this.router.navigateByUrl("dashboard");
         //already exist
@@ -78,6 +82,12 @@ export class DataService {
     if (acno in database) {
       if (pswd == database[acno]["password"]) {
         database[acno]["balance"] += amount;
+        database[acno]["transaction"].push({
+          type:"CREDIT",
+          amount:amount
+        })
+        // console.log(database);
+        
         return database[acno]["balance"]
       }
       else {
@@ -96,14 +106,19 @@ export class DataService {
 
   withdraw(acno:any,pswd:any,amt:any){
     let amount=parseInt(amt);
+    let database=this.database;
 
 
-    if(acno in this.database){
-      if(this.database[acno]["password"]==pswd){
-        if(this.database[acno]["balance"]>=amount){
-          this.database[acno]["balance"]-=amount;
-          // alert(+amount+"deducted!!")
-          return this.database[acno]["balance"];
+    if(acno in database){
+      if(database[acno]["password"]==pswd){
+        if(database[acno]["balance"]>=amount){
+          database[acno]["balance"]-=amount;
+          database[acno]["transaction"].push({
+            type:"DEBIT",
+            amount:amount
+          })
+          // console.log(database);
+          return database[acno]["balance"];
         }
         else{
           alert("insufficient balance")
@@ -120,4 +135,11 @@ export class DataService {
     }
   }
 
+  //transactions 
+
+  transaction(acno:any){
+    return this.database[acno].transaction
+  }
+
 }
+
