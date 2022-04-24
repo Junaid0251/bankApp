@@ -18,7 +18,49 @@ export class DataService {
   }
 
 
-  constructor() { }
+  constructor() { 
+    this.getDetails();
+  }
+
+
+  //to save data in local storage
+
+  saveDetails(){
+    localStorage.setItem("database",JSON.stringify(this.database))
+
+    if(this.currentAcno){
+      localStorage.setItem("currentAcno",JSON.stringify(this.currentAcno))
+    }
+
+
+    if(this.currentUser){
+      localStorage.setItem("currentUser",JSON.stringify(this.currentUser))
+    }
+
+  }
+
+
+  //get from local storage
+
+  getDetails(){
+    if(localStorage.getItem("database")){
+
+      this.database=JSON.parse(localStorage.getItem("database")||'')
+
+    }
+
+    if(localStorage.getItem("currentAcno")){
+      this.currentAcno=JSON.parse(localStorage.getItem("currentAcno")||'')
+
+    }
+
+    if(localStorage.getItem("currentUser")){
+      this.currentUser=JSON.parse(localStorage.getItem("currentUser")||'')
+
+    }
+
+
+  }
 
   //register
 
@@ -40,6 +82,8 @@ export class DataService {
       }
       console.log(database);
 
+      this.saveDetails()
+
       return true;
     }
 
@@ -58,6 +102,8 @@ export class DataService {
 
         // this.router.navigateByUrl("dashboard");
         //already exist
+
+        this.saveDetails();
         return true;
       }
       else {
@@ -87,6 +133,8 @@ export class DataService {
           amount:amount
         })
         // console.log(database);
+
+        this.saveDetails();
         
         return database[acno]["balance"]
       }
@@ -118,6 +166,7 @@ export class DataService {
             amount:amount
           })
           // console.log(database);
+          this.saveDetails();
           return database[acno]["balance"];
         }
         else{
