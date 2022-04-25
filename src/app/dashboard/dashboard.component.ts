@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   //depositForm model
 
   user:any;
+  acno:any;
 
   deposetForm=this.fb.group({
    acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
@@ -38,6 +39,11 @@ export class DashboardComponent implements OnInit {
    })
 
 
+   loginDate:any;
+
+   
+
+
 
   constructor(private ds: DataService,private fb:FormBuilder,private router:Router) {
 
@@ -50,6 +56,8 @@ export class DashboardComponent implements OnInit {
       alert("Please Login ...")
       this.router.navigateByUrl("")
     }
+
+    this.loginDate=new Date();
   }
 
   deposit() {
@@ -93,6 +101,17 @@ export class DashboardComponent implements OnInit {
   }
 
   }
+
+  //delete from parent
+
+  deletefromParent(){
+    this.acno=JSON.parse(localStorage.getItem("currentAcno")||'')
+
+
+  }
+
+
+  //logout
 
   logout(){
     localStorage.removeItem("currentUser")

@@ -15,6 +15,8 @@ font-family: 'Numans', sans-serif;
 .container{
 height: 45%;
 align-content: center;
+float: left;
+
 }
 
 .card{
@@ -23,6 +25,9 @@ margin-top: auto;
 margin-bottom: auto;
 width: 400px;
 background-color: rgba(0,0,0,0.7) !important;
+
+
+
 }
 
 .social_icon span{
