@@ -14,16 +14,20 @@
   <h3 style="color: rgb(236, 235, 241);">{{loginDate | date:'medium'|uppercase}}</h3>
   <a routerLink="/transactions">Transaction History</a>
 
-  <app-delete-conformation [item]=acno></app-delete-conformation>
+  <!-- child selector -->
 
-      <div class="container col-md-12 mt-0 ">
+
+
+  <app-delete-conformation (onDelete)="onDelete($event)" (onCancel)="onCancel()" [item]=acno></app-delete-conformation>
+
+      <div [ngClass]="acno? 'style1':'' " class="container col-md-12 mt-0 ">
           <div class="d-flex justify-content-center h-100">
               <div class="card">
                   <div class="card-header">
-                      <h3 class="text-center">Deposit Form</h3>
+                      <h3 appHighlight class="text-center">Deposit Form</h3>
                       
                   </div>
-                  <div class="card-body">
+                  <div  class="card-body">
                       <form [formGroup]="deposetForm" (ngSubmit)="deposit()">            
     
     
@@ -72,7 +76,7 @@
           <div class="d-flex justify-content-center h-100">
               <div class="card">
                   <div class="card-header">
-                      <h3 class="text-center">Withdraw Form</h3>
+                      <h3 appHighlight class="text-center">Withdraw Form</h3>
                       
                   </div>
                   <div class="card-body">

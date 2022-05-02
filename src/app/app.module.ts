@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { DeleteConformationComponent } from './delete-conformation/delete-conformation.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DeleteConformationComponent } from './delete-conformation/delete-confor
     DashboardComponent,
     RegisterComponent,
     TransactionsComponent,
-    DeleteConformationComponent
+    DeleteConformationComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
