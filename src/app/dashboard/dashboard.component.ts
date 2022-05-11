@@ -47,15 +47,15 @@ export class DashboardComponent implements OnInit {
 
   constructor(private ds: DataService,private fb:FormBuilder,private router:Router) {
 
-    this.user=this.ds.currentUser;
+    this.user=JSON.parse(localStorage.getItem("currentUser")||"");
    }
 
   ngOnInit(): void {
 
-    if(!localStorage.getItem("currentAcno")){
-      alert("Please Login ...")
-      this.router.navigateByUrl("")
-    }
+    // if(!localStorage.getItem("currentAcno")){
+    //   alert("Please Login ...")
+    //   this.router.navigateByUrl("")
+    // }
 
     this.loginDate=new Date();
   }
@@ -70,10 +70,16 @@ export class DashboardComponent implements OnInit {
 
     if(this.deposetForm.valid)
     {
-      const result = this.ds.deposit(acno, pswd, amt)
-    if (result) {
-      alert(amt + " succesfully deposited and new balance is " + result)
-    }
+     this.ds.deposit(acno, pswd, amt)
+     .subscribe((result:any)=>{
+      if (result) {
+        alert(result.message)
+      }
+     },
+     result=>{
+       alert(result.error.message)
+     })
+    
   }
   else{
     alert("invalid form")
@@ -90,11 +96,17 @@ export class DashboardComponent implements OnInit {
     // calling withdraw() in DataService
     if(this.withdrawForm.valid)
     {
-      const result = this.ds.withdraw(acno, pswd, amt);
-    if (result >= 0) {
-      alert(amt + " Amount deducted and new balance is " + result);
-
-    }
+      this.ds.withdraw(acno, pswd, amt)
+      .subscribe((result:any)=>{
+        if (result ) {
+          alert(result.message);
+    
+        }
+      },
+      result=>{
+        alert(result.error.message)
+      })
+    
   }
   else{
     alert("invalid Form")

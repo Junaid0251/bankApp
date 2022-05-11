@@ -1,8 +1,14 @@
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { TransactionsComponent } from '../transactions/transactions.component';
 
+const options ={
+  headers:new HttpHeaders()
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
 
@@ -12,13 +18,13 @@ export class DataService {
   //database
   database: any = {
     1000: { acno: 1000, uname: "sura", password: 1000, balance: 20,transaction:[] },
-    1001: { acno: 1001, uname: "suni", password: 1001, balance: 200,transaction:[] },
+    1001: { acno: 1000, uname: "sura", password: 1000, balance: 20,transaction:[] },
     1002: { acno: 1002, uname: "sasi", password: 1002, balance: 0,transaction:[] },
 
   }
 
 
-  constructor() { 
+  constructor(private http:HttpClient) { 
     this.getDetails();
   }
 
@@ -65,130 +71,101 @@ export class DataService {
   //register
 
   register(acno: any, uname: any, password: any) {
-    let database = this.database;
-
-    if (acno in database) {
-      //already exists
-      return false;
+    const data={
+      uname,
+      acno,
+      password
     }
-    else {
-      //add account number to database
-      database[acno] = {
-        acno,
-        uname,
-        password,
-        balance: 0,
-        transaction:[]
-      }
-      console.log(database);
 
-      this.saveDetails()
-
-      return true;
-    }
+    //register API call
+    return this.http.post ('http://localhost:3000/register',data)
 
   }
 
+  //login
 
   login(acno: any, pswd: any) {
 
-    let db = this.database;
-    if (acno in db) {
-      if (pswd == db[acno]["password"]) {
-        // alert("login successfull");
+   //request body
+   const data ={
+     acno,
+     pswd,
+   }
 
-        this.currentUser=this.database[acno]["uname"];
-        this.currentAcno=acno;
+   //login api call
 
-        // this.router.navigateByUrl("dashboard");
-        //already exist
-
-        this.saveDetails();
-        return true;
-      }
-      else {
-        alert("Incorrect password");
-        return false;
-      }
-    }
-    else {
-      alert("invalid user");
-      return false;
-
-    }
+   return this.http.post('http://localhost:3000/login',data)
   }
 
 
   //deposit
 
-  deposit(acno: any, pswd: any, amt: any) {
-    let amount = parseInt(amt);
-    let database = this.database;
 
-    if (acno in database) {
-      if (pswd == database[acno]["password"]) {
-        database[acno]["balance"] += amount;
-        database[acno]["transaction"].push({
-          type:"CREDIT",
-          amount:amount
-        })
-        // console.log(database);
+  //addd token to header
+  getOptions(){
+    
+    //fetch token
 
-        this.saveDetails();
-        
-        return database[acno]["balance"]
-      }
-      else {
-        alert("incorrect password")
-        return false
-      }
+    const token =JSON.parse(localStorage.getItem("token")||"")
+
+    //create HttpHeader
+
+    let headers =new HttpHeaders
+
+    if(token){
+      headers = headers.append('x-access-token',token)
+      options.headers=headers;
+      
     }
-    else {
-      alert("invalid user")
-      return false
-    }
+    return options
   }
+
+  deposit(acno: any, pswd: any, amt: any) {
+
+    const data={
+      amt,
+      acno,
+      pswd
+    }
+
+
+    //deposit API call
+    return this.http.post ('http://localhost:3000/deposit',data,this.getOptions())
+    
+  }
+  
 
 
   //withdraw
 
   withdraw(acno:any,pswd:any,amt:any){
-    let amount=parseInt(amt);
-    let database=this.database;
+
+    const data={
+      amt,
+      acno,
+      pswd
+    }
 
 
-    if(acno in database){
-      if(database[acno]["password"]==pswd){
-        if(database[acno]["balance"]>=amount){
-          database[acno]["balance"]-=amount;
-          database[acno]["transaction"].push({
-            type:"DEBIT",
-            amount:amount
-          })
-          // console.log(database);
-          this.saveDetails();
-          return database[acno]["balance"];
-        }
-        else{
-          alert("insufficient balance")
-        }
-      }
-      else{
-        alert("incorrect password")
-        return false;
-      }
-    }
-    else{
-      alert("invalid user");
-      return false;
-    }
+    //withdraw API call
+    return this.http.post ('http://localhost:3000/withdraw',data,this.getOptions())
+    
   }
+   
+  
 
   //transactions 
 
   transaction(acno:any){
-    return this.database[acno].transaction
-  }
+
+   const data={
+     acno
+   }
+
+   //transaction API call
+
+   return this.http.post('http://localhost:3000/transaction',data,this.getOptions())
+  } 
 
 }
 

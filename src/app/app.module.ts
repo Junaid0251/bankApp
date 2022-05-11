@@ -11,7 +11,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { DeleteConformationComponent } from './delete-conformation/delete-conformation.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
-
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -29,7 +29,9 @@ import { AnimationDemoComponent } from './animation-demo/animation-demo.componen
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -31,16 +31,20 @@ export class RegisterComponent implements OnInit {
     let passwd=this.registerForm.value.passwd;
 
     if(this.registerForm.valid){
-
-      const reslt=this.db.register(acntno,uname,passwd)
-    if(reslt){
-      alert("registered")
-      this.router.navigateByUrl("");
-    }
-    else{
-      alert("already exist...press log in")
-    }
-
+      //asynchronus
+      this.db.register(acntno,uname,passwd)
+      .subscribe((result:any)=>{
+        if(result){
+          alert(result.message)
+          this.router.navigateByUrl("");
+        }
+      },
+      result=>{
+        alert(result.error.message)
+      }
+      
+      )
+      
     }
     else{
       alert("invalid form")
